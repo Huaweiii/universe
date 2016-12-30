@@ -8,6 +8,7 @@ from universe.twisty import reactor
 from twisted.internet import endpoints
 
 logger = logging.getLogger(__name__)
+extra_logger = logging.getLogger('universe.extra.'+__name__)
 
 class RewardServerClient(websocket.WebSocketClientProtocol, object):
     def __init__(self):
@@ -50,6 +51,10 @@ class RewardServerClient(websocket.WebSocketClientProtocol, object):
         logger.info('[RewardProxyClient] [%d] Rewarder websocket connection closed: %s', self.id, reason)
 
     def close(self):
+        extra_logger.debug("JTJT reward_proxy_server.RewardServerClient.close %s")
+        import traceback
+        traceback.print_stack()
+
         logger.info('[RewardProxyClient] [%d] Closing connection', self.id)
         self.transport.loseConnection()
 
@@ -166,6 +171,10 @@ class RewardProxyServer(websocket.WebSocketServerProtocol, object):
         endpoint.connect(client_factory).addCallbacks(_connect_callback, _connect_errback)
 
     def close(self):
+        extra_logger.debug("JTJT reward_proxy_server.RewardServerClient.close")
+        import traceback
+        traceback.print_stack()
+
         logger.info('[RewardProxyServer] [%d] Closing...', self.id)
         self.transport.loseConnection()
 

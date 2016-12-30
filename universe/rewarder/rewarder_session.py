@@ -35,6 +35,9 @@ class RewarderSession(object):
         self.clients = {}
 
     def close(self, name=None, reason=u'closed by RewarderSession.close'):
+        extra_logger.debug("JTJT Closing rewarder connection %s %s", name, reason)
+        import traceback
+        traceback.print_stack()
         if name is None:
             names = list(self.names_by_id.values())
         else:
@@ -126,6 +129,13 @@ class RewarderSession(object):
         factory.arg_fps = fps
 
         def record_error(e):
+            import traceback
+            print("JTJT")
+            print("JTJT")
+            print("JTJT")
+            print(e)
+            traceback.print_stack()
+
             if isinstance(e, failure.Failure):
                 e = e.value
 
@@ -378,6 +388,10 @@ class Network(object):
         self.recalibrate = reactor.callLater(5 * 60, calibrate)
 
     def close(self):
+        extra_logger.debug("JTJT rewarder_session.Network.close")
+        import traceback
+        traceback.print_stack()
+
         if self.recalibrate:
             try:
                 self.recalibrate.cancel()

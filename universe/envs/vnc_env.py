@@ -568,6 +568,10 @@ class Mask(object):
             self.mask = [True] * self.n
 
     def close(self, i):
+        extra_logger.debug("JTJT Mask.close %s", i)
+        import traceback
+        traceback.print_stack()
+
         self.mask[i] = None
         self.episode_ids[i] = None
 

@@ -47,6 +47,7 @@ class RewarderClient(websocket.WebSocketClientProtocol):
         self.reward_buffer.reset(episode_id)
 
     def onConnect(self, request):
+        extra_logger.debug("JT onConnect: %s", request)
         self._message_id = 0
         self._requests = {}
 
@@ -60,6 +61,7 @@ class RewarderClient(websocket.WebSocketClientProtocol):
         return self._connection_result
 
     def send(self, method, body, headers=None, expect_reply=False):
+        extra_logger.debug("JT send: %s %s", method, body)
         if headers is None:
             headers = {}
         if self._closed:
@@ -103,6 +105,7 @@ class RewarderClient(websocket.WebSocketClientProtocol):
         return self.recv(self._make_context(), {'method': method, 'body': body, 'headers': headers})
 
     def recv(self, context, response):
+        extra_logger.debug("JT recv: %s %s", context, response)
         method = response['method']
         body = response['body']
         headers = response['headers']
@@ -194,6 +197,7 @@ class RewarderClient(websocket.WebSocketClientProtocol):
         self.recv(context, payload)
 
     def onClose(self, wasClean, code, reason):
+        extra_logger.debug("JT onClose: %s %s %s", wasClean, code, reason)
         if self._close_message:
             return
 

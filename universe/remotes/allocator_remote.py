@@ -162,6 +162,9 @@ class AllocatorManager(threading.Thread):
         self.requests.put(('allocate', (handles, initial, params)))
 
     def close(self):
+        extra_logger.debug("JTJT allocator_remote.close %s")
+        import traceback
+        traceback.print_stack()
         self.requests.put(('close', ()))
 
     def run(self):

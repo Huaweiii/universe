@@ -45,7 +45,7 @@ class RewardState(object):
         merge.merge_infos(self.info, info)
 
     def push(self, reward, done, info):
-        # extra_logger.debug('[%s] RewardState: pushing reward %s to episode_id %s', self.label, reward, self._episode_id)
+        extra_logger.debug('[%s] JTJT RewardState: pushing reward %s to episode_id %s', self.label, reward, self._episode_id)
         self.count += 1
         self.reward += reward
 
